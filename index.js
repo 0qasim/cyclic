@@ -7,6 +7,8 @@ const multer = require("multer");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const EmployeeModel = require("./models/Employee.js");
+require("dotenv").config();
+
 const app = express();
 app.use(express.json()); // Use JSON body parsing middleware
 app.use(
@@ -24,13 +26,12 @@ app.get("*", function (_, res) {
     function (err) {
       if (err) {
         res.status(500).send(err);
-        
       }
     }
   );
 });
 mongoose.connect(
-  "mongodb+srv://qaziqasim:qasim92@cluster0.sp0ggxq.mongodb.net/employee?retryWrites=true&w=majority"
+  `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.sp0ggxq.mongodb.net/employee?retryWrites=true&w=majority`
 );
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
@@ -95,6 +96,6 @@ app.get("/logout", (req, res) => {
   return res.json("**Success");
 });
 
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log("Server is running ");
 });
