@@ -24,6 +24,7 @@ app.get("*", function (_, res) {
     function (err) {
       if (err) {
         res.status(500).send(err);
+        
       }
     }
   );
