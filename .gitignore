@@ -1,0 +1,5 @@
+/.env
+/node_modules
+/package-lock.json
+/react-navigation/node_modules
+/react-navigation/package-lock.json
