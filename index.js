@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json()); // Use JSON body parsing middleware
 app.use(
   cors({
-    origin: ["http://localhost:3001"],
+    origin: ["https://myreact.cyclic.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })

@@ -12,7 +12,7 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3001/Signup", { name, email, password })
+    axios.post("https://myreact.cyclic.app/Signup", { name, email, password })
       .then((result) => {
         console.log(result);
         toast.success("Signup successful")

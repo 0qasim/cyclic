@@ -15,7 +15,7 @@ const App = () => {
   const [user,setUser]=useState({})
   axios.defaults.withCredentials=true;
   useEffect(() => {
-    axios.get('http://localhost:3001/')
+    axios.get('https://myreact.cyclic.app')
       .then(user => {
         console.log(user.data); // Check if user data is received correctly
         setUser(user.data);
