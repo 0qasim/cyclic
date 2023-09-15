@@ -1,45 +1,50 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "styled-components";
-import {ToastContainer, toast} from "react-toastify"
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { userContext } from "./App";
 const Signin = () => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const user = useContext(userContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
 
-// ...
-const handleSubmit = (e) => {
-  e.preventDefault();
-  if (user.email) {
-    // User is already signed in, show a toast message or redirect
-    toast.info("You are already signed in.");
-    // Optionally, you can redirect them to another page
-    setTimeout(() => {
-      navigate("/"); // Redirect to the home page after a delay (in milliseconds)
-    }, 3000);    return; // Exit the function to prevent further execution
-  }
-  axios.post("https://myreact.cyclic.app/Signin", { email, password }, { withCredentials: true })
-    .then((result) => {
-      toast.error(result.data);
-      console.log(result);
-      if (result.data === "**Success") {
-        toast.success("Login successful");
-        setTimeout(() => {
-        window.location.href = "/";
+  // ...
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (user.email) {
+      // User is already signed in, show a toast message or redirect
+      toast.info("You are already signed in.");
+      // Optionally, you can redirect them to another page
+      setTimeout(() => {
+        navigate("/"); // Redirect to the home page after a delay (in milliseconds)
       }, 3000);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-// ...
-
+      return; // Exit the function to prevent further execution
+    }
+    axios
+      .post(
+        "https://myreact.cyclic.app/Signin",
+        { email, password },
+        { withCredentials: true }
+      )
+      .then((result) => {
+        toast.error(result.data);
+        console.log(result);
+        if (result.data === "**Success") {
+          toast.success("Login successful");
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 3000);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // ...
 
   return (
     <div
@@ -50,7 +55,8 @@ const handleSubmit = (e) => {
         height: `calc(100vh-80px)`,
       }}
       className="d-flex justify-content-center align-items-center vh-100"
-    ><ToastContainer/>
+    >
+      <ToastContainer />
       <div
         className="bg-white p-4 rounded shadow-lg w-50"
         style={{ opacity: 0.7, color: "black" }}
@@ -59,7 +65,8 @@ const handleSubmit = (e) => {
           <h1 className="mb-4">Sign In</h1>
           <div className="mb-3">
             <label>Email address</label>
-            <input style={{fontSize:"17px"}}
+            <input
+              style={{ fontSize: "17px" }}
               required
               autoComplete="email"
               type="email"
@@ -71,7 +78,8 @@ const handleSubmit = (e) => {
           <div className="mb-3">
             <label>Password</label>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <input style={{fontSize:"17px"}}
+              <input
+                style={{ fontSize: "17px" }}
                 required
                 autoComplete="current-password"
                 type={show ? "text" : "password"}
@@ -85,7 +93,7 @@ const handleSubmit = (e) => {
                   background: " lightgrey ",
                   position: "absolute",
                   right: "27%",
-                  borderRadius:"8px"
+                  borderRadius: "8px",
                 }}
               >
                 {show ? "Hide" : "Show"}

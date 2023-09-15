@@ -5,6 +5,7 @@ import { FaBars } from "react-icons/fa";
 import Menu from "./Menu";
 import { userContext } from "../../App";
 import axios from "axios";
+
 const Navbar = ({ toggleDrawer, routes }) => {
   const user = useContext(userContext);
   const [showProfileOptions, setShowProfileOptions] = useState(false);
@@ -14,11 +15,12 @@ const Navbar = ({ toggleDrawer, routes }) => {
   };
 
   const navigate = useNavigate();
+
   const handleLogOut = () => {
     axios
       .get("https://myreact.cyclic.app/logout")
       .then((res) => {
-        if (res.data === "**Success") navigate("/");
+        if (res.data === "**Success") navigate(0);
       })
       .catch((err) => console.log(err));
   };
@@ -30,12 +32,12 @@ const Navbar = ({ toggleDrawer, routes }) => {
           <FaBars />
         </DrawerButton>
         <SNavbarBrand>
-          <img src="vite.svg" />
+          <img src="vite.svg" alt="Logo" />
           !l
         </SNavbarBrand>
 
         <RightNav>
-          {user.name ? (
+          {user.email ? (
             <NavRoutes>
               {routes.map((route) => {
                 if (route.subRoutes) {
@@ -51,7 +53,7 @@ const Navbar = ({ toggleDrawer, routes }) => {
           ) : (
             <></>
           )}
-          {user.name ? (
+          {user.email ? (
             <div>
               <DropdownContainer>
                 <AvatarButton onClick={toggleProfileOptions}>
@@ -76,6 +78,8 @@ const Navbar = ({ toggleDrawer, routes }) => {
     </SNanvbar>
   );
 };
+export default Navbar;
+
 const DrawerButton = styled.button`
   all: unset;
   font-size: 3rem;
@@ -86,8 +90,7 @@ const DrawerButton = styled.button`
 `;
 
 const AvatarButton = styled.button`
-  border: 2px solid; /* Added border */
-
+  border: 2px solid;
   color: #4b37cf;
   border-radius: 50%;
   width: 40px;
@@ -98,16 +101,18 @@ const AvatarButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease, color 0.2s ease; /* Added animation */
+  transition: background-color 0.2s ease, color 0.2s ease;
 
   &:hover {
     background: linear-gradient(#4b37cf, #d13abd, #4b37cf);
     color: beige;
   }
 `;
+
 const SNanvbar = styled.nav`
   background-color: #4b37cf;
 `;
+
 const NAvContainer = styled.div`
   padding: 1rem;
   height: 70px;
@@ -118,13 +123,16 @@ const NAvContainer = styled.div`
   align-items: center;
   color: white;
 `;
+
 const SNavbarBrand = styled.h2`
   font-size: 3rem;
 `;
+
 const RightNav = styled.div`
   display: flex;
   gap: 2rem;
 `;
+
 const NavRoutes = styled.div`
   display: flex;
   gap: 1rem;
@@ -136,10 +144,12 @@ const NavRoutes = styled.div`
     display: none;
   }
 `;
+
 const NavRoute = styled(Link)`
   padding: 0.5rem;
   text-decoration: none;
   color: inherit;
+
   &:hover {
     color: grey;
     transition: 0.4s ease;
@@ -165,6 +175,7 @@ const LoginButton = styled(Link)`
     color: white;
   }
 `;
+
 const RegisterButton = styled(Link)`
   padding: 1rem 3rem;
   background-color: white;
@@ -186,7 +197,6 @@ const DropdownContainer = styled.div`
   position: relative;
   display: inline-block;
 `;
-
 const DropdownContent = styled.div`
   position: absolute;
   max-height: 12rem;
@@ -225,6 +235,7 @@ const ProfileButton = styled.button`
     background-color: #d0a7fc;
   }
 `;
+
 const LogoutButton = styled.button`
   color: #333;
   padding: 10px;
@@ -242,5 +253,3 @@ const LogoutButton = styled.button`
     background-color: #d0a7fc;
   }
 `;
-
-export default Navbar;

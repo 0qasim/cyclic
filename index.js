@@ -96,6 +96,6 @@ app.get("/logout", (req, res) => {
   return res.json("**Success");
 });
 
-app.listen(process.env.PORT || 3001, () => {
+app.listen(3001, () => {
   console.log("Server is running ");
 });
